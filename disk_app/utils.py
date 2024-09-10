@@ -1,6 +1,6 @@
 # Функция определения типа файлов
-def get_file_type(file_name: str):
-    extension = file_name.split(".")[-1].lower()
+def get_file_type(file_name: str) -> str:
+    extension: str = file_name.split(".")[-1].lower()
     # Изображения
     if extension in ["jpg", "jpeg", "png", "gif", "bmp", "tiff"]:
         return "image"
