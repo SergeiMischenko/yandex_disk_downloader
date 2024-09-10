@@ -1,0 +1,18 @@
+<h2>Загрузка файлов с Яндекс.Диска</h2>
+
+<form method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit">Получить список файлов</button>
+</form>
+
+{% if files %}
+	<h3>Список файлов:</h3>
+	<ul>
+        {% for item in files %}
+            <li>{{ item.name }} - <a href="{{ item.file }}" download>Скачать</a></li>
+        {% endfor %}
+	</ul>
+{% else %}
+	<p>Список файлов пуст.</p>
+{% endif %}
