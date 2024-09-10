@@ -1,17 +1,27 @@
 <h2>Загрузка файлов с Яндекс.Диска</h2>
 
 <form method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit">Получить список файлов</button>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!-- Выбор типа файлов -->
+    <label for="type">Фильтр по типу файлов:</label>
+    <select name="type" id="type">
+        <option value="">Все</option>
+        <option value="archive" {% if request.POST.type == 'archive' %}selected{% endif %}>Архивы</option>
+        <option value="document" {% if request.POST.type == 'document' %}selected{% endif %}>Документы</option>
+        <option value="image" {% if request.POST.type == 'image' %}selected{% endif %}>Изображения</option>
+        <option value="executable" {% if request.POST.type == 'executable' %}selected{% endif %}>Исполняемые файлы</option>
+        <option value="media" {% if request.POST.type == 'media' %}selected{% endif %}>Медиа файлы</option>
+    </select>
+    <button type="submit">Получить список файлов</button>
 </form>
 
 {% if files %}
 	<h3>Список файлов:</h3>
 	<ul>
-        {% for item in files %}
-            <li>{{ item.name }} - <a href="{{ item.file }}" download>Скачать</a></li>
-        {% endfor %}
+		{% for item in files %}
+			<li>{{ item.name }} - <a href="{{ item.file }}" download>Скачать</a></li>
+		{% endfor %}
 	</ul>
 {% else %}
 	<p>Список файлов пуст.</p>
